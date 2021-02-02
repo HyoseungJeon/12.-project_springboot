@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="io.plateer.hmarket.store.mapper.MemberMapper">
+
+<!-- 
+	private String memberId;
+	private String name;
+	private String password;
+	private String email;
+	private long joinDate;
+	private String auth;
+	
+	private List<Order> orderList;
+	private List<Product> productList;
+	 -->
+
+	<!-- <resultMap id="ClubWithMembership" type="io.namoosori.travelclub.entity.club.TravelClub">
+        <id property="usid" column="usid"/>
+        <id property="name" column="name"/>
+        <id property="intro" column="intro"/>
+        <id property="foundationDay" column="foundationDay"/>
+        <id property="boardId" column="boardId"/>
+        <collection property="membershipList" ofType="io.namoosori.travelclub.entity.club.ClubMembership">
+            <id property="clubId" column="clubId"/>
+            <id property="memberEmail" column="memberEmail"/>
+            <id property="role" column="role"/>
+            <id property="joinDate" column="joinDate"/>
+        </collection>
+    </resultMap> -->
+	
+	<insert id="create" parameterType="io.plateer.hmarket.entity.Member">
+		insert into member(member_id, name, password, email, address)
+        values (
+        #{member_id},
+        #{name},
+        #{password},
+        #{email},
+        #{address}
+        )
+	</insert>
+	
+	<select id="retrieve" parameterType="string" resultType="io.plateer.hmarket.entity.Member">
+		select *
+		from member
+		where member_id = #{memberId};
+	</select>
+	
+	<select id="retrieveByName" parameterType="string" resultType="io.plateer.hmarket.entity.Member">
+		select *
+		from member
+		where name like #{name};
+	
+	</select>
+	
+	<update id="update" parameterType="io.plateer.hmarket.entity.Member">
+		update member
+		set
+		name=#{name},
+        password=#{password},
+        email=#{email},
+        address=#{address}
+		where member_id=#{memberId}
+	</update>
+	
+	<delete id="delete">
+		delete from member 
+		where member_id = #{memberId};
+	</delete>
+
+</mapper>

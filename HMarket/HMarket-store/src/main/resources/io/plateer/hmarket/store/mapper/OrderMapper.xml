@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="io.plateer.hmarket.store.mapper.OrderMapper">
+
+<!-- 
+	public void create(Order order);
+	public Order retrieve(String orderId);
+    public List<Order> retrieveByMemberId(String memberId);
+    public List<Order> retrieveByState(String memberId, String state);
+    public void update(Order order);
+    public void delete(String orderId);
+    
+    private String order_id;
+	private String product_id;
+	private String member_id;
+	private int count;
+	private String state;
+	private String address;
+	private String order_Date;
+     -->
+     
+     
+    <insert id="create" parameterType="io.plateer.hmarket.entity.Order">
+		insert into orders(product_id, count, state, address, member_Id)
+        values (
+        #{product_id},
+        #{count},
+        #{state},
+        #{address},
+        #{member_id}
+        )
+	</insert>
+	
+	<select id="retrieve" parameterType="string" resultType="io.plateer.hmarket.entity.Order">
+		select *
+		from orders
+		where order_id = #{order_id};
+	</select>
+	
+	<select id="retrieveByMemberId" parameterType="string" resultType="io.plateer.hmarket.entity.Order">
+		select *
+		from orders
+		where member_id = #{member_id};
+	
+	</select>
+	
+	<select id="retrieveByState" parameterType="string" resultType="io.plateer.hmarket.entity.Order">
+		select *
+		from orders
+		where member_id = #{memberId}
+		and state = #{state};
+	
+	</select>
+	
+	<update id="update" parameterType="io.plateer.hmarket.entity.Order">
+		update orders
+		set
+        count=#{count},
+        state=#{state},
+        address=#{address}
+        where order_id=#{order_id};
+	</update>
+	
+	<delete id="delete">
+		delete from orders 
+		where order_id = #{orderId};
+	</delete>
+	
+</mapper>

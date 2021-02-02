@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="io.plateer.hmarket.store.mapper.ProductMapper">
+
+<!-- 
+	public void create(Product product);
+    public Product retrieve(String product_id);
+    public List<Product> retrieveByName(String productName);
+    public List<Product> retrieveByMemberId(String memberId);
+    public List<Product> retrieveByCategorie(String categories);
+    public List<Product> retrieveByNameAndCategorie(String productName, String categories);
+    public void update(Product product);
+    public void delete(String product_id);
+    
+    private String product_id;
+	private String member_id;
+	private String product_name;
+	private String product_intro;
+	private String categories;
+	private int quantity;
+	private int price;
+	private String upload_date;
+	 -->
+	 
+	<insert id="create" parameterType="io.plateer.hmarket.entity.Product">
+		insert into Product(product_name, product_intro, categories, quantity, price, member_id)
+        values (
+        #{product_name},
+        #{product_intro},
+        #{categories},
+        #{quantity},
+        #{price},
+        #{member_id}
+        )
+	</insert>
+	
+	<select id="retrieve" parameterType="string" resultType="io.plateer.hmarket.entity.Product">
+		select *
+		from Product
+		where product_id = #{product_id};
+	</select>
+	
+	<select id="retrieveByName" parameterType="string" resultType="io.plateer.hmarket.entity.Product">
+		select *
+		from Product
+		where product_name like '%${productName}%'
+		;
+	
+	</select>
+	
+	<select id="retrieveByMemberId" parameterType="string" resultType="io.plateer.hmarket.entity.Product">
+		select *
+		from Product
+		where member_id = #{memberId};
+	
+	</select>
+	
+	<select id="retrieveByCategorie" parameterType="string" resultType="io.plateer.hmarket.entity.Product">
+		select *
+		from Product
+		where categories = #{categories};
+	
+	</select>
+	
+	<select id="retrieveByNameAndCategorie" parameterType="string" resultType="io.plateer.hmarket.entity.Product">
+		select *
+		from Product
+		where product_name = #{productName} and
+		categories = #{categories};
+	
+	</select>
+	
+	<update id="update" parameterType="io.plateer.hmarket.entity.Product">
+		update Product
+		set
+		product_name=#{product_name},
+        product_intro=#{product_intro},
+        categories=#{categories},
+        quantity=#{quantity},
+        price=#{price},
+        member_id=#{member_id}
+        where product_id = #{product_id};
+	</update>
+	
+	<delete id="delete">
+		delete from Product 
+		where product_id = #{product_id};
+	</delete>
+
+</mapper>
